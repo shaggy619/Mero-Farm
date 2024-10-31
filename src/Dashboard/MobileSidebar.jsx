@@ -1,5 +1,4 @@
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { useAppContext } from "../../context/AppContext";
 import { useMediaQuery } from "react-responsive";
 import { IoMdHome, IoMdSettings } from "react-icons/io";
 import { GiChicken } from "react-icons/gi";
@@ -8,6 +7,7 @@ import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { FaRegChartBar } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
 
 function MobileSidebar() {
   const { show } = useAppContext();

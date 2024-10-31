@@ -2,8 +2,8 @@ import React from "react";
 import { RiMenu2Fill } from "react-icons/ri";
 import { MdLogout } from "react-icons/md";
 import { BsBell } from "react-icons/bs";
-import { useAppContext } from "../../context/AppContext";
 import MobileSidebar from "./MobileSidebar";
+import { useAppContext } from "../context/AppContext";
 
 const Navbar = () => {
   const notificationCount = 5;

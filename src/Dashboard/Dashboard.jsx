@@ -1,9 +1,9 @@
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
-import { useAppContext } from "../../context/AppContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Error from "./Error";
+import { useAppContext } from "../context/AppContext";
 const Dashboard = () => {
   const { toogle } = useAppContext();
   return (
