@@ -84,3 +84,19 @@ a.active {
 .offcanvas-body {
   padding: 0 !important;
 }
+
+.dropdown-menu-custom {
+  max-width: 350px;
+  width: 350px !important;
+  white-space: normal;
+}
+
+.dropdown-menu-custom .dropdown-item {
+  white-space: normal;
+}
+
+@media screen and (max-width: 767px) {
+  .dropdown-menu-custom {
+    width: 250px !important;
+  }
+}
