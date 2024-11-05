@@ -43,15 +43,15 @@ const Navbar = () => {
               </span>
             )}
           </Dropdown.Toggle>
-          <Dropdown.Menu className="dropdown-menu-custom mt-2">
-            <div className="px-3 py-2 border-bottom"> All Notifications</div>
+          <Dropdown.Menu className="dropdown-menu-custom">
+            <div className="px-3 py-2 border-bottom"> Notifications</div>
             <Dropdown.Item href="#/action-1">
               <div className="lh-sm">Feed is almost out of the stock.</div>
               <div className="small text-muted">1hr ago</div>
             </Dropdown.Item>
             <Dropdown.Item href="#/action-2">
               <div className="lh-sm">
-                Batch 32 need to be vaccinned this Saturday.
+                Batch 32 need to be vaccinated this Saturday.
               </div>
               <div className="small text-muted">3hr ago</div>
             </Dropdown.Item>
@@ -62,7 +62,7 @@ const Navbar = () => {
           </Dropdown.Menu>
         </Dropdown>
 
-        <div className="gradient-button text-white rounded px-3 py-2 d-flex align-items-center">
+        <div className="gradient-button text-white rounded px-3 py-2 d-flex align-items-center cursor-pointer">
           <div className="d-none d-md-block"> Logout </div>
           <MdLogout size={22} className="ms-2" />
         </div>

@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PieChart from "./PieChart";
 
 const Home = () => {
   return (
-    <section>
-      <div className=" px-5 py-4">
-        <div className="row gap-4 align-items-center justify-content-center d-flex text-center">
+    <section className=" px-4 px-md-5 pb-4">
+      <div className=" py-4">
+        <div className="row gap-3 gap-md-4 align-items-center justify-content-center d-flex text-center">
           <div className="col-12 col-md bg-white rounded p-4 py-5 d-flex flex-column align-items-center justify-content-center">
             <h2 className="primary-color">2600</h2>
             <div className="fw-medium">No. of birds</div>
@@ -20,8 +21,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className=" px-5 py-2">
-        <div className="row gap-4 justify-content-center d-flex">
+      <div className=" py-2">
+        <div className="row  gap-3 gap-md-4 justify-content-center d-flex">
           <div className="col-12 col-md bg-white rounded px-4 pt-4 pb-3">
             <div className="text-muted mb-2">Recent activities</div>
             <div className="d-flex gap-2 align-items-center mb-3">
@@ -78,6 +79,7 @@ const Home = () => {
           </div>
           <div className="col-12 col-md bg-white rounded p-4">
             <div className="text-muted mb-2">Data from past 6 months</div>
+            <PieChart />
           </div>
         </div>
       </div>
