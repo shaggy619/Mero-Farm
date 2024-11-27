@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Error from "./Error";
+import Farm from "./Farm";
 import { useAppContext } from "../context/AppContext";
 const Dashboard = () => {
   const { toogle } = useAppContext();
@@ -20,6 +21,8 @@ const Dashboard = () => {
             <Navbar />
             <Routes>
               <Route path="/dashboard" element={<Home />} />
+              <Route path="/farm" element={<Farm />} />
+
               <Route path="*" element={<Error />} />
             </Routes>
           </div>

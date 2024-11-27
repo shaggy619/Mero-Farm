@@ -3,6 +3,7 @@
 :root {
   --primary-color: #3a69ff;
   --secondary-color: #eeeeee;
+  --red-color: #df1c1f;
 }
 
 body {
@@ -23,7 +24,15 @@ a {
 }
 
 .primary-color {
-  color: var(--primary-color);
+  color: var(--primary-color) !important;
+}
+
+.primary-background {
+  background-color: var(--primary-color) !important;
+}
+
+.red-background {
+  background-color: var(--red-color) !important;
 }
 
 .secondary-background {
