@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DemoTable from "../components/Table";
+import FarmTable from "../components/FarmTable";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
@@ -10,11 +10,11 @@ const Farm = () => {
   const handleShow = () => setShow(true);
   return (
     <div className="container">
-      <div className="row mx-1 mt-3 align-items-center justify-content-between gap-3">
+      <div className="row mx-2 mt-3 align-items-center justify-content-between gap-3">
         <div className="col-md-6">
           <input
             type="text"
-            className="form-control py-2"
+            className="form-control py-2 shadow-sm"
             placeholder="Search by Batch ID"
           />
         </div>
@@ -76,7 +76,7 @@ const Farm = () => {
         </Modal.Footer>
       </Modal>
 
-      <DemoTable />
+      <FarmTable />
     </div>
   );
 };

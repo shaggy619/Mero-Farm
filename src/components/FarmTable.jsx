@@ -184,7 +184,7 @@ const columns = [
 ];
 
 // Table component
-const TableDemo = () => {
+const FarmTable = () => {
   // Initialize the table instance using `useReactTable`
   const table = useReactTable({
     data,
@@ -192,9 +192,9 @@ const TableDemo = () => {
   });
 
   return (
-    <div className="container mt-3">
-      <div className="table-responsive border">
-        <table className="table table-striped">
+    <div className="mx-2 mt-3">
+      <div className="table-responsive">
+        <table className="table table-striped border">
           <thead>
             <tr>
               {columns.map((column) => (
@@ -229,4 +229,4 @@ const TableDemo = () => {
   );
 };
 
-export default TableDemo;
+export default FarmTable;
