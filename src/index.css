@@ -104,6 +104,11 @@ a.active {
   white-space: normal;
 }
 
+.text-avatar {
+  width: 80px;
+  height: 80px;
+}
+
 @media screen and (max-width: 767px) {
   .dropdown-menu-custom {
     width: 250px !important;

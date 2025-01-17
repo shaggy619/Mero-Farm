@@ -9,8 +9,8 @@ import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <section id="sidebar">
-      <div className="text-center position-sticky top-0 py-3 bg-white">
+    <section id="sidebar" className="position-sticky top-0 vh-100">
+      <div className="text-center py-3 bg-white">
         <img src="/img/logo.png" alt="Roaster logo" className="logo" />
       </div>
       <ul>

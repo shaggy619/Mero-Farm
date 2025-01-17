@@ -6,6 +6,7 @@ import Error from "./Error";
 import Farm from "./Farm";
 import { useAppContext } from "../context/AppContext";
 import Inventory from "./Inventory";
+import EditProfile from "./EditProfile";
 const Dashboard = () => {
   const { toogle } = useAppContext();
   return (
@@ -24,6 +25,7 @@ const Dashboard = () => {
               <Route path="/dashboard" element={<Home />} />
               <Route path="/farm" element={<Farm />} />
               <Route path="/inventory" element={<Inventory />} />
+              <Route path="/profile" element={<EditProfile />} />
 
               <Route path="*" element={<Error />} />
             </Routes>
