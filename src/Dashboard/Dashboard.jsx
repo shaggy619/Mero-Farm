@@ -7,6 +7,8 @@ import Farm from "./Farm";
 import { useAppContext } from "../context/AppContext";
 import Inventory from "./Inventory";
 import EditProfile from "./EditProfile";
+import CustomCalendar from "./CustomCalendar";
+import Calendar from "./Calendar";
 const Dashboard = () => {
   const { toogle } = useAppContext();
   return (
@@ -26,6 +28,7 @@ const Dashboard = () => {
               <Route path="/farm" element={<Farm />} />
               <Route path="/inventory" element={<Inventory />} />
               <Route path="/profile" element={<EditProfile />} />
+              <Route path="/vaccination" element={<Calendar />} />
 
               <Route path="*" element={<Error />} />
             </Routes>

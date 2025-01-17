@@ -30,8 +30,6 @@ const data = [
     days: 28,
     type: "local",
     total: 500,
-    hen: 250,
-    roaster: 250,
   },
   {
     id: 2,
@@ -39,8 +37,6 @@ const data = [
     days: 30,
     type: "layers",
     total: 600,
-    hen: 300,
-    roaster: 300,
   },
   {
     id: 3,
@@ -48,8 +44,6 @@ const data = [
     days: 31,
     type: "boiler",
     total: 550,
-    hen: 275,
-    roaster: 275,
   },
   {
     id: 4,
@@ -57,8 +51,6 @@ const data = [
     days: 30,
     type: "local",
     total: 480,
-    hen: 240,
-    roaster: 240,
   },
   {
     id: 5,
@@ -66,8 +58,6 @@ const data = [
     days: 31,
     type: "boiler",
     total: 650,
-    hen: 325,
-    roaster: 325,
   },
   {
     id: 6,
@@ -75,8 +65,6 @@ const data = [
     days: 30,
     type: "local",
     total: 500,
-    hen: 250,
-    roaster: 250,
   },
   {
     id: 7,
@@ -84,17 +72,14 @@ const data = [
     days: 31,
     type: "layers",
     total: 700,
-    hen: 350,
-    roaster: 350,
   },
+
   {
     id: 8,
     batch: "Aug0824",
     days: 31,
     type: "local",
     total: 550,
-    hen: 275,
-    roaster: 275,
   },
   {
     id: 9,
@@ -102,8 +87,6 @@ const data = [
     days: 30,
     type: "layers",
     total: 530,
-    hen: 265,
-    roaster: 265,
   },
   {
     id: 10,
@@ -111,8 +94,6 @@ const data = [
     days: 31,
     type: "local",
     total: 600,
-    hen: 300,
-    roaster: 300,
   },
   {
     id: 11,
@@ -120,8 +101,6 @@ const data = [
     days: 30,
     type: "boiler",
     total: 520,
-    hen: 260,
-    roaster: 260,
   },
   {
     id: 12,
@@ -129,8 +108,6 @@ const data = [
     days: 31,
     type: "local",
     total: 650,
-    hen: 325,
-    roaster: 325,
   },
 ];
 
@@ -141,8 +118,6 @@ const columns = [
   { header: "Days", accessorKey: "days" },
   { header: "Type", accessorKey: "type" },
   { header: "Total Birds", accessorKey: "total" },
-  { header: "Roaster", accessorKey: "roaster" },
-  { header: "Hen", accessorKey: "hen" },
   {
     header: "Actions",
     accessorKey: "action",
