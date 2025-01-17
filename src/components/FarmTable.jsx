@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import { useReactTable } from "@tanstack/react-table";
+import {
+  MdFirstPage,
+  MdLastPage,
+  MdNavigateBefore,
+  MdNavigateNext,
+} from "react-icons/md";
+import {
+  useReactTable,
+  getCoreRowModel,
+  getPaginationRowModel,
+} from "@tanstack/react-table";
 
 // Handle Edit
 const handleEdit = (rowData) => {
@@ -11,6 +21,7 @@ const handleEdit = (rowData) => {
 const handleDelete = (rowData) => {
   console.log("Deleting:", rowData);
 };
+
 // Dummy data
 const data = [
   {
@@ -85,69 +96,42 @@ const data = [
     hen: 275,
     roaster: 275,
   },
-  //   {
-  //     id: 9,
-  //     batch: "Sep0924",
-  //     days: 30,
-  //     type: "layers",
-  //     total: 530,
-  //     hen: 265,
-  //     roaster: 265,
-  //   },
-  //   {
-  //     id: 10,
-  //     batch: "Oct1024",
-  //     days: 31,
-  //     type: "local",
-  //     total: 600,
-  //     hen: 300,
-  //     roaster: 300,
-  //   },
-  //   {
-  //     id: 11,
-  //     batch: "Nov1124",
-  //     days: 30,
-  //     type: "boiler",
-  //     total: 520,
-  //     hen: 260,
-  //     roaster: 260,
-  //   },
-  //   {
-  //     id: 12,
-  //     batch: "Dec1224",
-  //     days: 31,
-  //     type: "local",
-  //     total: 650,
-  //     hen: 325,
-  //     roaster: 325,
-  //   },
-  //   {
-  //     id: 13,
-  //     batch: "Jan1324",
-  //     days: 31,
-  //     type: "layers",
-  //     total: 600,
-  //     hen: 300,
-  //     roaster: 300,
-  //   },
-  //   {
-  //     id: 14,
-  //     batch: "Feb1424",
-  //     days: 28,
-  //     type: "local",
-  //     total: 550,
-  //     hen: 275,
-  //     roaster: 275,
-  //   },
-  //   {
-  //     id: 15,
-  //     batch: "Mar1524",
-  //     days: 30,
-  //     type: "local",
-  //     total: 480,
-  //     hen: 240,
-  //     roaster: 240,
-  //   },
+  {
+    id: 9,
+    batch: "Sep0924",
+    days: 30,
+    type: "layers",
+    total: 530,
+    hen: 265,
+    roaster: 265,
+  },
+  {
+    id: 10,
+    batch: "Oct1024",
+    days: 31,
+    type: "local",
+    total: 600,
+    hen: 300,
+    roaster: 300,
+  },
+  {
+    id: 11,
+    batch: "Nov1124",
+    days: 30,
+    type: "boiler",
+    total: 520,
+    hen: 260,
+    roaster: 260,
+  },
+  {
+    id: 12,
+    batch: "Dec1224",
+    days: 31,
+    type: "local",
+    total: 650,
+    hen: 325,
+    roaster: 325,
+  },
 ];
 
 // Column configuration
@@ -183,12 +167,15 @@ const columns = [
   },
 ];
 
-// Table component
 const FarmTable = () => {
+  const [pageSize, setPageSize] = useState(10);
+
   // Initialize the table instance using `useReactTable`
   const table = useReactTable({
     data,
     columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   return (
@@ -208,8 +195,8 @@ const FarmTable = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((row, rowIndex) => (
-              <tr key={rowIndex}>
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id}>
                 {columns.map((column) => (
                   <td
                     key={column.accessorKey || column.header}
@@ -217,13 +204,74 @@ const FarmTable = () => {
                   >
                     {column.cell
                       ? column.cell({ row })
-                      : row[column.accessorKey]}
+                      : row.getValue(column.accessorKey)}
                   </td>
                 ))}
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="d-flex justify-content-end gap-3 align-items-center mb-3">
+        <div>
+          <span className="d-none d-md-inline">Rows per page:</span>
+          <select
+            className="ms-2"
+            value={pageSize}
+            onChange={(e) => {
+              setPageSize(Number(e.target.value));
+              table.setPageSize(Number(e.target.value));
+            }}
+          >
+            {[5, 10, 15, 20].map((size) => (
+              <option key={size} value={size}>
+                {size}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="d-none d-md-flex">
+          {table.getState().pagination.pageIndex * pageSize + 1}-
+          {Math.min(
+            (table.getState().pagination.pageIndex + 1) * pageSize,
+            data.length
+          )}
+          of {data.length}
+        </div>
+
+        <div>
+          <Button
+            size="sm"
+            onClick={() => table.setPageIndex(0)}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <MdFirstPage size={20} />
+          </Button>
+          <Button
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <MdNavigateBefore size={20} />
+          </Button>
+          <Button
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            <MdNavigateNext size={20} />
+          </Button>
+          <Button
+            size="sm"
+            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            disabled={!table.getCanNextPage()}
+          >
+            <MdLastPage size={20} />
+          </Button>
+        </div>
       </div>
     </div>
   );
