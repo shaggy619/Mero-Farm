@@ -10,7 +10,7 @@ const Farm = () => {
   const handleShow = () => setShow(true);
   return (
     <div className="container">
-      <div className="row mx-2 mt-3 align-items-center justify-content-between gap-3">
+      <div className="row mx-4 mt-3 align-items-center justify-content-between gap-3">
         <div className="col-md-6">
           <input
             type="text"

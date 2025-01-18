@@ -154,7 +154,7 @@ const FarmTable = () => {
   });
 
   return (
-    <div className="mx-2 mt-3">
+    <div className="p-4">
       <div className="table-responsive">
         <table className="table table-striped border">
           <thead>
