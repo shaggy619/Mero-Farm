@@ -127,7 +127,7 @@ const Setup = () => {
             </Col>
           </Row>
 
-          <Row className="mb-4 g-4">
+          {/* <Row className="mb-4 g-4">
             <Col md={6} className="pe-0 pe-md-2">
               <Form.Group controlId="formMarketPrice">
                 <Form.Label className="fw-medium">
@@ -142,7 +142,7 @@ const Setup = () => {
                 />
               </Form.Group>
             </Col>
-          </Row>
+          </Row> */}
 
           <div className="mt-4 d-flex justify-content-center">
             <Button variant="primary" onClick={handleSaveSettings}>

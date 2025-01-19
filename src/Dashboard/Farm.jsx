@@ -41,28 +41,17 @@ const Farm = () => {
               <input type="text" className="form-control" id="no-of-birds" />
             </div>
             <div className="form-group">
-              <label htmlFor="male" className="col-form-label">
-                Male:
+              <label htmlFor="price" className="col-form-label">
+                Price:
               </label>
-              <input type="text" className="form-control" id="male" />
+              <input type="text" className="form-control" id="price" />
             </div>
-            <div className="form-group">
-              <label htmlFor="female" className="col-form-label">
-                Female:
-              </label>
-              <input type="text" className="form-control" id="female" />
-            </div>
+
             <div className="form-group">
               <label htmlFor="date" className="col-form-label">
                 Added Date:
               </label>
               <input type="date" className="form-control" id="date" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="type" className="col-form-label">
-                Type:
-              </label>
-              <input type="text" className="form-control" id="type" />
             </div>
           </form>
         </Modal.Body>

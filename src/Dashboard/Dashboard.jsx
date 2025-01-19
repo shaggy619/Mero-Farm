@@ -54,7 +54,7 @@ const Dashboard = () => {
               <Route path="/vaccination" element={<Calendar />} />
               <Route path="/employees" element={<Employees />} />
               <Route path="/sales" element={<Sales />} />
-              <Route path="/finance" element={<Finance />} />
+              {/* <Route path="/finance" element={<Finance />} /> */}
               <Route path="/setup" element={<Setup />} />
               <Route path="*" element={<Error />} />
             </Routes>

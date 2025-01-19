@@ -12,8 +12,8 @@ const Home = () => {
             <div className="fw-medium">No. of birds</div>
           </div>
           <div className="col-12 col-md bg-white rounded p-4 py-5 d-flex flex-column align-items-center justify-content-center">
-            <h2 className="primary-color">1200</h2>
-            <div className="fw-medium">No. of eggs</div>
+            <h2 className="primary-color">400</h2>
+            <div className="fw-medium">Today's Market Price</div>
           </div>
           <div className="col-12 col-md bg-white rounded p-4 py-5 d-flex flex-column align-items-center justify-content-center">
             <h2 className="primary-color">4</h2>

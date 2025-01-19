@@ -69,7 +69,7 @@ const Sidebar = () => {
             Employee
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink
             to="/finance"
             className="text-dark fw-medium d-flex align-items-center py-3 px-4"
@@ -77,7 +77,7 @@ const Sidebar = () => {
             <RiMoneyRupeeCircleFill size={22} className="me-2" />
             Finance
           </NavLink>
-        </li>
+        </li> */}
 
         <li>
           <NavLink

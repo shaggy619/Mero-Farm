@@ -116,7 +116,6 @@ const columns = [
   { header: "SN", accessorKey: "id" },
   { header: "Batch", accessorKey: "batch" },
   { header: "Days", accessorKey: "days" },
-  { header: "Type", accessorKey: "type" },
   { header: "Total Birds", accessorKey: "total" },
   {
     header: "Actions",
@@ -145,7 +144,6 @@ const columns = [
 const FarmTable = () => {
   const [pageSize, setPageSize] = useState(10);
 
-  // Initialize the table instance using `useReactTable`
   const table = useReactTable({
     data,
     columns,
