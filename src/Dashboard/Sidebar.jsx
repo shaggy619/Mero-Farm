@@ -6,6 +6,7 @@ import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { FaRegChartBar } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { MdGroupAdd } from "react-icons/md";
 
 const Sidebar = () => {
   return (
@@ -57,6 +58,15 @@ const Sidebar = () => {
           >
             <FaRegChartBar size={21} className="me-2" />
             Sales
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/employees"
+            className="text-dark fw-medium d-flex align-items-center py-3 px-4"
+          >
+            <MdGroupAdd size={21} className="me-2" />
+            Employee
           </NavLink>
         </li>
         <li>

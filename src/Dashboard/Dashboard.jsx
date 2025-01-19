@@ -1,6 +1,11 @@
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Home from "./Home";
 import Error from "./Error";
 import Farm from "./Farm";
@@ -10,10 +15,27 @@ import EditProfile from "./EditProfile";
 import Calendar from "./Calendar";
 import Finance from "./Finance";
 import Sales from "./Sales";
+import { useEffect } from "react";
+import Employees from "./Employees";
+import Setup from "./Setup";
+
+const ScrollToTop = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  return null;
+};
+
 const Dashboard = () => {
   const { toogle } = useAppContext();
+
   return (
     <Router>
+      <ScrollToTop />
+
       <div className="container-fluid">
         <div className="row">
           {toogle && (
@@ -30,8 +52,10 @@ const Dashboard = () => {
               <Route path="/inventory" element={<Inventory />} />
               <Route path="/profile" element={<EditProfile />} />
               <Route path="/vaccination" element={<Calendar />} />
+              <Route path="/employees" element={<Employees />} />
               <Route path="/sales" element={<Sales />} />
               <Route path="/finance" element={<Finance />} />
+              <Route path="/setup" element={<Setup />} />
               <Route path="*" element={<Error />} />
             </Routes>
           </div>

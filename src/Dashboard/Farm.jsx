@@ -9,8 +9,8 @@ const Farm = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
-    <div className="container">
-      <div className="row mx-4 mt-3 align-items-center justify-content-between gap-3">
+    <div className="px-4 px-md-5 mt-3 ">
+      <div className="row align-items-center justify-content-between gap-3">
         <div className="col-md-6">
           <input
             type="text"
