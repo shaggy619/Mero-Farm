@@ -12,73 +12,50 @@ import {
   getPaginationRowModel,
 } from "@tanstack/react-table";
 
-// Handle Edit
-const handleEdit = (rowData) => {
-  console.log("Editing:", rowData);
-};
-
-// Handle Delete
-const handleDelete = (rowData) => {
-  console.log("Deleting:", rowData);
-};
-
-// Dummy data
-const data = [
-  { id: 1, addedDate: "2024/10/12", type: "B1", quantity: 1200 },
-  { id: 2, addedDate: "2024/11/12", type: "B2", quantity: 1500 },
-  { id: 3, addedDate: "2024/12/12", type: "Organic", quantity: 1500 },
-  { id: 4, addedDate: "2025/01/12", type: "B3", quantity: 1300 },
-  { id: 5, addedDate: "2025/02/12", type: "B4", quantity: 1400 },
-  { id: 6, addedDate: "2024/10/15", type: "B1", quantity: 1100 },
-  { id: 7, addedDate: "2024/11/10", type: "B2", quantity: 1600 },
-  { id: 8, addedDate: "2024/12/05", type: "Organic", quantity: 1550 },
-  { id: 9, addedDate: "2025/01/05", type: "B3", quantity: 1250 },
-  { id: 10, addedDate: "2025/02/10", type: "B4", quantity: 1350 },
-  { id: 11, addedDate: "2024/09/20", type: "B1", quantity: 1050 },
-  { id: 12, addedDate: "2024/11/30", type: "B2", quantity: 1450 },
-  { id: 13, addedDate: "2024/12/20", type: "Organic", quantity: 1600 },
-  { id: 14, addedDate: "2025/01/25", type: "B3", quantity: 1200 },
-  { id: 15, addedDate: "2025/02/05", type: "B4", quantity: 1550 },
-  { id: 16, addedDate: "2024/10/25", type: "B1", quantity: 1000 },
-  { id: 17, addedDate: "2024/11/05", type: "B2", quantity: 1700 },
-  { id: 18, addedDate: "2024/12/10", type: "Organic", quantity: 1400 },
-  { id: 19, addedDate: "2025/01/15", type: "B3", quantity: 1350 },
-  { id: 20, addedDate: "2025/02/20", type: "B4", quantity: 1450 },
-];
-
-// Column configuration
-const columns = [
-  { header: "SN", accessorKey: "id" },
-  { header: "Added Date", accessorKey: "addedDate" },
-  { header: "Type", accessorKey: "type" },
-  { header: "Quantity", accessorKey: "quantity" },
-  {
-    header: "Actions",
-    accessorKey: "action",
-    cell: ({ row }) => (
-      <div className="d-flex">
-        <Button
-          size="sm"
-          className="me-2 primary-background"
-          onClick={() => handleEdit(row.original)}
-        >
-          Edit
-        </Button>
-        <Button
-          variant="danger"
-          size="sm"
-          onClick={() => handleDelete(row.original)}
-        >
-          Delete
-        </Button>
-      </div>
-    ),
-  },
-];
-
 // Table component
-const FeedTable = () => {
+const FeedTable = ({ data, setData }) => {
   const [pageSize, setPageSize] = useState(10);
+  // Handle Edit
+  const handleEdit = (rowData) => {
+    const updatedData = data.filter((item) => item.id !== rowData.id);
+    setData(updatedData);
+  };
+
+  // Handle Delete
+  const handleDelete = (rowData) => {
+    const updatedData = data.filter((item) => item.id !== rowData.id);
+    setData(updatedData);
+  };
+
+  // Column configuration
+  const columns = [
+    { header: "SN", accessorKey: "id" },
+    { header: "Added Date", accessorKey: "addedDate" },
+    { header: "Type", accessorKey: "type" },
+    { header: "Quantity", accessorKey: "quantity" },
+    {
+      header: "Actions",
+      accessorKey: "action",
+      cell: ({ row }) => (
+        <div className="d-flex">
+          <Button
+            size="sm"
+            className="me-2 primary-background"
+            onClick={() => handleEdit(row.original)}
+          >
+            Finish
+          </Button>
+          <Button
+            variant="danger"
+            size="sm"
+            onClick={() => handleDelete(row.original)}
+          >
+            Delete
+          </Button>
+        </div>
+      ),
+    },
+  ];
 
   // Initialize the table instance using `useReactTable`
   const table = useReactTable({
