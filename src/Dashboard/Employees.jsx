@@ -60,11 +60,11 @@ const Employees = () => {
 
   return (
     <section className=" pb-4 px-4 px-md-5">
-      <div className="py-4 row">
+      <div className="row">
         <Button
           variant="primary"
           onClick={handleShow}
-          className="btn primary-background text-white col-12 col-md-4 col-lg-2 py-2 mt-4 mb-3"
+          className="btn primary-background text-white col-12 col-md-4 col-lg-2 py-2 mt-4 mb-2"
         >
           Add Employee
         </Button>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Modal, Form } from "react-bootstrap";
 import {
   MdFirstPage,
   MdLastPage,
@@ -12,137 +12,78 @@ import {
   getPaginationRowModel,
 } from "@tanstack/react-table";
 
-// Handle Edit
-const handleEdit = (rowData) => {
-  console.log("Editing:", rowData);
-};
-
-// Handle Delete
-const handleDelete = (rowData) => {
-  console.log("Deleting:", rowData);
-};
-
-// Dummy data
-const data = [
-  {
-    id: 1,
-    batch: "Jan0124",
-    days: 28,
-    type: "local",
-    total: 500,
-  },
-  {
-    id: 2,
-    batch: "Feb0224",
-    days: 30,
-    type: "layers",
-    total: 600,
-  },
-  {
-    id: 3,
-    batch: "Mar0324",
-    days: 31,
-    type: "boiler",
-    total: 550,
-  },
-  {
-    id: 4,
-    batch: "Apr0424",
-    days: 30,
-    type: "local",
-    total: 480,
-  },
-  {
-    id: 5,
-    batch: "May0524",
-    days: 31,
-    type: "boiler",
-    total: 650,
-  },
-  {
-    id: 6,
-    batch: "Jun0624",
-    days: 30,
-    type: "local",
-    total: 500,
-  },
-  {
-    id: 7,
-    batch: "Jul0724",
-    days: 31,
-    type: "layers",
-    total: 700,
-  },
-
-  {
-    id: 8,
-    batch: "Aug0824",
-    days: 31,
-    type: "local",
-    total: 550,
-  },
-  {
-    id: 9,
-    batch: "Sep0924",
-    days: 30,
-    type: "layers",
-    total: 530,
-  },
-  {
-    id: 10,
-    batch: "Oct1024",
-    days: 31,
-    type: "local",
-    total: 600,
-  },
-  {
-    id: 11,
-    batch: "Nov1124",
-    days: 30,
-    type: "boiler",
-    total: 520,
-  },
-  {
-    id: 12,
-    batch: "Dec1224",
-    days: 31,
-    type: "local",
-    total: 650,
-  },
-];
-
-// Column configuration
-const columns = [
-  { header: "SN", accessorKey: "id" },
-  { header: "Batch", accessorKey: "batch" },
-  { header: "Days", accessorKey: "days" },
-  { header: "Total Birds", accessorKey: "total" },
-  {
-    header: "Actions",
-    accessorKey: "action",
-    cell: ({ row }) => (
-      <div className="d-flex">
-        <Button
-          size="sm"
-          className="me-2 primary-background"
-          onClick={() => handleEdit(row.original)}
-        >
-          Edit
-        </Button>
-        <Button
-          variant="danger"
-          size="sm"
-          onClick={() => handleDelete(row.original)}
-        >
-          Delete
-        </Button>
-      </div>
-    ),
-  },
-];
-
-const FarmTable = () => {
+const FarmTable = ({ data, setData }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
   const [pageSize, setPageSize] = useState(10);
+  const [editReason, setEditReason] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
+
+  // Handle Edit
+  const handleEdit = (rowData) => {
+    setSelectedRow(rowData);
+    setEditReason("");
+    setQuantity("");
+    setPrice("");
+    setShowModal(true);
+  };
+
+  // Handle Save Changes
+  const handleSaveChanges = () => {
+    if (selectedRow && editReason && quantity) {
+      const updatedData = data.map((item) =>
+        item.id === selectedRow.id
+          ? { ...item, total: item.total - Number(quantity) }
+          : item
+      );
+      setData(updatedData);
+      handleClose();
+    }
+  };
+
+  // Handle Delete
+  const handleDelete = (rowData) => {
+    const updatedData = data.filter((item) => item.id !== rowData.id);
+    setData(updatedData);
+  };
+
+  // Handle Modal Close
+  const handleClose = () => {
+    setShowModal(false);
+    setSelectedRow(null);
+  };
+
+  // Column configuration
+  const columns = [
+    { header: "SN", accessorKey: "id" },
+    { header: "Batch", accessorKey: "batch" },
+    { header: "Date", accessorKey: "date" },
+    { header: "Days", accessorKey: "days" },
+    { header: "Total Birds", accessorKey: "total" },
+    {
+      header: "Actions",
+      accessorKey: "action",
+      cell: ({ row }) => (
+        <div className="d-flex">
+          <Button
+            size="sm"
+            className="me-2 primary-background"
+            onClick={() => handleEdit(row.original)}
+          >
+            Edit
+          </Button>
+          <Button
+            variant="danger"
+            size="sm"
+            onClick={() => handleDelete(row.original)}
+          >
+            Delete
+          </Button>
+        </div>
+      ),
+    },
+  ];
 
   const table = useReactTable({
     data,
@@ -185,8 +126,6 @@ const FarmTable = () => {
           </tbody>
         </table>
       </div>
-
-      {/* Pagination Controls */}
       <div className="d-flex justify-content-end gap-3 align-items-center mb-3">
         <div>
           <span className="d-none d-md-inline">Rows per page:</span>
@@ -246,6 +185,56 @@ const FarmTable = () => {
           </Button>
         </div>
       </div>
+
+      {/* Edit Modal */}
+      <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Batch</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedRow && (
+            <Form>
+              <Form.Group className="mb-3">
+                <Form.Label>Reason for Update</Form.Label>
+                <Form.Select
+                  value={editReason}
+                  onChange={(e) => setEditReason(e.target.value)}
+                >
+                  <option value="">Select Reason</option>
+                  <option value="sold">Sold</option>
+                  <option value="mortality">Mortality</option>
+                </Form.Select>
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Quantity</Form.Label>
+                <Form.Control
+                  type="number"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                />
+              </Form.Group>
+              {editReason === "sold" && (
+                <Form.Group className="mb-3">
+                  <Form.Label>Price</Form.Label>
+                  <Form.Control
+                    type="number"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
+                </Form.Group>
+              )}
+            </Form>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleSaveChanges}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
