@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Modal, Form } from "react-bootstrap";
 import {
   MdVisibility,
   MdVisibilityOff,
@@ -16,6 +16,8 @@ import {
 
 const EmployeeTable = ({ employees, setEmployees }) => {
   const [visiblePasswords, setVisiblePasswords] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [editData, setEditData] = useState({});
 
   // Handle toggle password visibility
   const togglePasswordVisibility = (id) => {
@@ -25,9 +27,24 @@ const EmployeeTable = ({ employees, setEmployees }) => {
     }));
   };
 
-  // Handle edit employee (placeholder)
+  // Handle edit employee
   const handleEdit = (rowData) => {
-    console.log("Editing:", rowData);
+    setEditData(rowData);
+    setShowModal(true);
+  };
+
+  // Handle save changes
+  const handleSave = () => {
+    setEmployees((prev) =>
+      prev.map((emp) => (emp.id === editData.id ? editData : emp))
+    );
+    setShowModal(false);
+  };
+
+  // Handle input change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditData((prev) => ({ ...prev, [name]: value }));
   };
 
   // Handle delete employee
@@ -196,6 +213,61 @@ const EmployeeTable = ({ employees, setEmployees }) => {
           </Button>
         </div>
       </div>
+
+      {/* Edit Employee Modal */}
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Employee</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="name"
+                value={editData.name || ""}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                value={editData.email || ""}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                value={editData.password || ""}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Role</Form.Label>
+              <Form.Control
+                type="text"
+                name="role"
+                value={editData.role || ""}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleSave}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
