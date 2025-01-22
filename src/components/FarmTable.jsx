@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import {
   MdFirstPage,
@@ -11,8 +11,10 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
 } from "@tanstack/react-table";
+import { FarmContext } from "../context/FarmContext";
 
-const FarmTable = ({ data, setData }) => {
+const FarmTable = () => {
+  const { batches, updateBatch, deleteBatch } = useContext(FarmContext);
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
   const [pageSize, setPageSize] = useState(10);
@@ -32,20 +34,19 @@ const FarmTable = ({ data, setData }) => {
   // Handle Save Changes
   const handleSaveChanges = () => {
     if (selectedRow && editReason && quantity) {
-      const updatedData = data.map((item) =>
-        item.id === selectedRow.id
-          ? { ...item, total: item.total - Number(quantity) }
-          : item
+      updateBatch(
+        selectedRow.id,
+        Number(quantity),
+        editReason,
+        price ? Number(price) : 0
       );
-      setData(updatedData);
-      handleClose();
+      setShowModal(false);
     }
   };
 
   // Handle Delete
   const handleDelete = (rowData) => {
-    const updatedData = data.filter((item) => item.id !== rowData.id);
-    setData(updatedData);
+    deleteBatch(rowData.id);
   };
 
   // Handle Modal Close
@@ -86,7 +87,7 @@ const FarmTable = ({ data, setData }) => {
   ];
 
   const table = useReactTable({
-    data,
+    data: batches,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -149,9 +150,9 @@ const FarmTable = ({ data, setData }) => {
           {table.getState().pagination.pageIndex * pageSize + 1}-
           {Math.min(
             (table.getState().pagination.pageIndex + 1) * pageSize,
-            data.length
+            batches.length
           )}
-          of {data.length}
+          of {batches.length}
         </div>
 
         <div>

@@ -1,23 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import FarmTable from "../components/FarmTable";
+import { FarmContext } from "../context/FarmContext";
 
 const Farm = () => {
   const [show, setShow] = useState(false);
-  const [data, setData] = useState([
-    { id: 1, batch: "Batch 1", date: "2024-01-01", days: 28, total: 500 },
-    { id: 2, batch: "Batch 2", date: "2024-02-01", days: 30, total: 600 },
-    { id: 3, batch: "Batch 3", date: "2024-03-01", days: 31, total: 550 },
-    { id: 4, batch: "Batch 4", date: "2024-04-01", days: 29, total: 500 },
-    { id: 5, batch: "Batch 5", date: "2024-05-01", days: 30, total: 600 },
-    { id: 6, batch: "Batch 6", date: "2024-06-01", days: 31, total: 550 },
-    { id: 7, batch: "Batch 7", date: "2024-07-01", days: 29, total: 500 },
-    { id: 8, batch: "Batch 8", date: "2024-08-01", days: 30, total: 600 },
-    { id: 9, batch: "Batch 9", date: "2024-09-01", days: 31, total: 550 },
-    { id: 10, batch: "Batch 10", date: "2024-10-01", days: 29, total: 500 },
-    { id: 11, batch: "Batch 11", date: "2024-11-01", days: 30, total: 600 },
-    { id: 12, batch: "Batch 12", date: "2024-12-01", days: 31, total: 550 },
-  ]);
+  const { batches, addBatch } = useContext(FarmContext);
   const [formData, setFormData] = useState({
     batch: "",
     birds: "",
@@ -39,14 +27,14 @@ const Farm = () => {
     const timeDiff = today - batchDate;
     const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
     const newBatch = {
-      id: data.length + 1,
-      batch: `Batch ${data.length + 1}`,
+      id: batches.length + 1,
+      batch: `Batch ${batches.length + 1}`,
       date: formData.date,
       days: daysDiff,
       price: parseInt(formData.price, 10),
       total: parseInt(formData.birds, 10),
     };
-    setData([...data, newBatch]);
+    addBatch([...batches, newBatch]);
     setFormData({ birds: "", price: "", date: "", type: "local" });
     handleClose();
   };
@@ -115,7 +103,7 @@ const Farm = () => {
         </Modal.Footer>
       </Modal>
 
-      <FarmTable data={data} setData={setData} />
+      <FarmTable />
     </div>
   );
 };

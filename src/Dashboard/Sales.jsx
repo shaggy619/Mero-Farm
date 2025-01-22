@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Chart from "react-apexcharts";
 import { Button } from "react-bootstrap";
 import {
@@ -12,76 +12,13 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
 } from "@tanstack/react-table";
+import { FarmContext } from "../context/FarmContext";
 
 const Sales = () => {
   const [pageSize, setPageSize] = useState(5);
-  const [salesData, setSalesData] = useState([
-    {
-      date: "2024-08-01",
-      batch: "Batch 26",
-      quantity: 100,
-      price: 500,
-      total: 50000,
-    },
-    {
-      date: "2024-08-10",
-      batch: "Batch 27",
-      quantity: 200,
-      price: 550,
-      total: 110000,
-    },
-    {
-      date: "2024-08-15",
-      batch: "Batch 28",
-      quantity: 150,
-      price: 520,
-      total: 78000,
-    },
-    {
-      date: "2024-08-20",
-      batch: "Batch 29",
-      quantity: 120,
-      price: 530,
-      total: 63600,
-    },
-    {
-      date: "2024-08-25",
-      batch: "Batch 30",
-      quantity: 180,
-      price: 560,
-      total: 100800,
-    },
-    {
-      date: "2024-09-01",
-      batch: "Batch 31",
-      quantity: 250,
-      price: 575,
-      total: 143750,
-    },
-    {
-      date: "2024-09-05",
-      batch: "Batch 32",
-      quantity: 220,
-      price: 590,
-      total: 129800,
-    },
-    {
-      date: "2024-09-10",
-      batch: "Batch 33",
-      quantity: 300,
-      price: 600,
-      total: 180000,
-    },
-    {
-      date: "2024-09-15",
-      batch: "Batch 34",
-      quantity: 200,
-      price: 615,
-      total: 123000,
-    },
-  ]);
+  const { sales } = useContext(FarmContext);
 
-  const totalSales = salesData.reduce((sum, sale) => sum + sale.total, 0);
+  const totalSales = sales.reduce((sum, sale) => sum + sale.total, 0);
 
   const columns = [
     { header: "Date", accessorKey: "date" },
@@ -92,7 +29,7 @@ const Sales = () => {
   ];
 
   const table = useReactTable({
-    data: salesData,
+    data: sales,
     columns,
     initialState: {
       pagination: {
@@ -104,12 +41,10 @@ const Sales = () => {
   });
 
   const chartData = {
-    series: [
-      { name: "Sales Revenue", data: salesData.map((sale) => sale.total) },
-    ],
+    series: [{ name: "Sales Revenue", data: sales.map((sale) => sale.total) }],
     options: {
       chart: { type: "bar", height: 350 },
-      xaxis: { categories: salesData.map((sale) => sale.batch) },
+      xaxis: { categories: sales.map((sale) => sale.batch) },
       colors: ["#007bff"],
     },
   };
@@ -193,9 +128,9 @@ const Sales = () => {
               {table.getState().pagination.pageIndex * pageSize + 1}-
               {Math.min(
                 (table.getState().pagination.pageIndex + 1) * pageSize,
-                salesData.length
+                sales.length
               )}
-              of {salesData.length}
+              of {sales.length}
             </div>
 
             <div>
