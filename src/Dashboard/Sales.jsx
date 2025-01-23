@@ -13,10 +13,12 @@ import {
   getPaginationRowModel,
 } from "@tanstack/react-table";
 import { FarmContext } from "../context/FarmContext";
+import { useAppContext } from "../context/AppContext";
 
 const Sales = () => {
   const [pageSize, setPageSize] = useState(5);
   const { sales } = useContext(FarmContext);
+  const { currencySymbol } = useAppContext();
 
   const totalSales = sales.reduce((sum, sale) => sum + sale.total, 0);
 
@@ -54,7 +56,10 @@ const Sales = () => {
       <div className="row gap-3 gap-md-4 align-items-center justify-content-center d-flex text-center mb-4">
         <div className=" bg-white rounded p-4 py-5 d-flex flex-column align-items-center justify-content-center">
           <h5 className="fw-medium">Total Sales Revenue</h5>
-          <h2 className="primary-color">${totalSales}</h2>
+          <h2 className="primary-color">
+            {currencySymbol}
+            {totalSales}
+          </h2>
         </div>
       </div>
 

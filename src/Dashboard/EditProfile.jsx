@@ -1,22 +1,20 @@
 import { useState } from "react";
+import { useProfile } from "../context/ProfileContext";
 
 const EditProfile = () => {
-  const [values, setValues] = useState({
-    fname: "Samyam",
-    lname: "Adhikari",
-    email: "samyam@gmail.com",
-    phoneNumber: "",
-    gender: "",
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-  });
+  const { profile, updateProfile } = useProfile();
+
+  const [localProfile, setLocalProfile] = useState(profile);
 
   const handleChanges = (e) => {
-    setValues({
-      ...values,
+    setLocalProfile({
+      ...localProfile,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleSave = () => {
+    updateProfile(localProfile);
   };
 
   return (
@@ -28,7 +26,8 @@ const EditProfile = () => {
       <div className="row justify-content-center">
         <div className="col-md-9 mt-3 border px-md-5 bg-white">
           <div className=" text-avatar d-flex align-items-center justify-content-center text-white text-center mx-auto mt-4 bg-dark fs-3 rounded-circle ">
-            SA
+            {profile.fname.charAt(0)}
+            {profile.lname.charAt(0)}
           </div>
           <div className="text-secondary text-center mb-3 mt-1">Admin</div>
 
@@ -41,7 +40,7 @@ const EditProfile = () => {
               placeholder="First Name"
               name="fname"
               onChange={handleChanges}
-              value={values.fname}
+              value={localProfile.fname}
             />
             <input
               type="text"
@@ -49,13 +48,13 @@ const EditProfile = () => {
               placeholder="Last Name"
               name="lname"
               onChange={handleChanges}
-              value={values.lname}
+              value={localProfile.lname}
             />
             <select
-              className="form-select mb-3 py-2"
+              className="form-select cursor-pointer mb-3 py-2"
               name="gender"
               onChange={handleChanges}
-              value={values.gender}
+              value={localProfile.gender}
             >
               <option value="">Select Your Gender</option>
               <option value="Male">Male</option>
@@ -72,7 +71,7 @@ const EditProfile = () => {
               placeholder="Enter current password"
               name="currentPassword"
               onChange={handleChanges}
-              value={values.currentPassword}
+              value={localProfile.currentPassword}
             />
             <input
               type="password"
@@ -80,7 +79,7 @@ const EditProfile = () => {
               placeholder="Enter new password"
               name="newPassword"
               onChange={handleChanges}
-              value={values.newPassword}
+              value={localProfile.newPassword}
             />
             <input
               type="password"
@@ -88,7 +87,7 @@ const EditProfile = () => {
               placeholder="Re-enter new password"
               name="confirmPassword"
               onChange={handleChanges}
-              value={values.confirmPassword}
+              value={localProfile.confirmPassword}
             />
           </div>
 
@@ -100,19 +99,22 @@ const EditProfile = () => {
               placeholder="Enter your email"
               name="email"
               onChange={handleChanges}
-              value={values.email}
+              value={localProfile.email}
             />
             <input
               type="tel"
               className="form-control mb-3 py-2"
               placeholder="Enter your phone number"
-              name="phoneNumber" // Changed to match state
+              name="phoneNumber"
               onChange={handleChanges}
-              value={values.phoneNumber}
+              value={localProfile.phoneNumber}
             />
           </div>
           <div className="text-center">
-            <button className="btn btn-primary full-button mb-4 mt-2">
+            <button
+              className="btn btn-primary full-button mb-4 mt-2"
+              onClick={handleSave}
+            >
               Save Changes
             </button>
           </div>

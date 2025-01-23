@@ -5,10 +5,12 @@ import { BsBell } from "react-icons/bs";
 import MobileSidebar from "./MobileSidebar";
 import { useAppContext } from "../context/AppContext";
 import Dropdown from "react-bootstrap/Dropdown";
+import { useProfile } from "../context/ProfileContext";
 
 const Navbar = () => {
   const notificationCount = 5;
   const { handleToogle } = useAppContext();
+  const { profile } = useProfile();
 
   return (
     <div className="position-sticky top-0 bg-white py-3 border-start px-4 d-flex align-items-center justify-content-between shadow-sm">
@@ -24,7 +26,7 @@ const Navbar = () => {
         <div>
           <div className="fw-bold fs-5 fs-md-4 logo-color">मेरो फार्म</div>
           <div className="small text-muted d-none d-md-block">
-            Welcome, Samyam Adhikari!
+            Welcome, {profile?.fname} {profile?.lname}!
           </div>
         </div>
       </div>

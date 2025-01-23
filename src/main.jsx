@@ -3,11 +3,14 @@ import "./index.css";
 import App from "./App.jsx";
 import { AppProvider } from "./context/AppContext";
 import FarmProvider from "./context/FarmContext";
+import { ProfileProvider } from "./context/ProfileContext";
 
 createRoot(document.getElementById("root")).render(
   <AppProvider>
-    <FarmProvider>
-      <App />
-    </FarmProvider>
+    <ProfileProvider>
+      <FarmProvider>
+        <App />
+      </FarmProvider>
+    </ProfileProvider>
   </AppProvider>
 );
