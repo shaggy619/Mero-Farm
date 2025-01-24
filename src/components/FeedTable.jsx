@@ -29,7 +29,11 @@ const FeedTable = ({ data, setData }) => {
 
   // Column configuration
   const columns = [
-    { header: "SN", accessorKey: "id" },
+    {
+      header: "SN",
+      accessorKey: "id",
+      cell: ({ row }) => <span>{row.index + 1}</span>,
+    },
     { header: "Added Date", accessorKey: "addedDate" },
     { header: "Type", accessorKey: "type" },
     { header: "Quantity", accessorKey: "quantity" },

@@ -57,7 +57,11 @@ const FarmTable = () => {
 
   // Column configuration
   const columns = [
-    { header: "SN", accessorKey: "id" },
+    {
+      header: "SN",
+      accessorKey: "id",
+      cell: ({ row }) => <span>{row.index + 1}</span>,
+    },
     { header: "Batch", accessorKey: "batch" },
     { header: "Date", accessorKey: "date" },
     { header: "Days", accessorKey: "days" },

@@ -18,16 +18,16 @@ const EditProfile = () => {
   };
 
   return (
-    <section className="py-4 container">
+    <section className="p-4 container">
       <div className="text-center">
         <div className="fs-3 fw-medium">Manage Profile</div>
         <div className="text-secondary">Edit your profile</div>
       </div>
       <div className="row justify-content-center">
-        <div className="col-md-9 mt-3 border px-md-5 bg-white">
+        <div className="col-md-9 mt-3 border px-3 px-md-5 bg-white rounded">
           <div className=" text-avatar d-flex align-items-center justify-content-center text-white text-center mx-auto mt-4 bg-dark fs-3 rounded-circle ">
-            {profile.fname.charAt(0)}
-            {profile.lname.charAt(0)}
+            {profile.fname.charAt(0).toUpperCase()}
+            {profile.lname.charAt(0).toUpperCase()}
           </div>
           <div className="text-secondary text-center mb-3 mt-1">Admin</div>
 
@@ -112,7 +112,7 @@ const EditProfile = () => {
           </div>
           <div className="text-center">
             <button
-              className="btn btn-primary full-button mb-4 mt-2"
+              className="btn primary-background text-white full-button mb-4 mt-2"
               onClick={handleSave}
             >
               Save Changes

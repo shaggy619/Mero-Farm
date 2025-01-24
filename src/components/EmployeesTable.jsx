@@ -56,7 +56,11 @@ const EmployeeTable = ({ employees, setEmployees }) => {
 
   // Column configuration
   const columns = [
-    { header: "SN", accessorKey: "id" },
+    {
+      header: "SN",
+      accessorKey: "id",
+      cell: ({ row }) => <span>{row.index + 1}</span>,
+    },
     { header: "Name", accessorKey: "name" },
     { header: "Email", accessorKey: "email" },
     { header: "Role", accessorKey: "role" },
