@@ -33,8 +33,10 @@ const Farm = () => {
       days: daysDiff,
       price: parseInt(formData.price, 10),
       total: parseInt(formData.birds, 10),
+      sold: 0,
+      mortality: 0,
     };
-    addBatch([...batches, newBatch]);
+    addBatch(newBatch);
     setFormData({ birds: "", price: "", date: "", type: "local" });
     handleClose();
   };

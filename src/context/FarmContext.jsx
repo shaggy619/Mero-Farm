@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useMemo } from "react";
 
 export const FarmContext = createContext();
 
@@ -116,6 +116,25 @@ const FarmProvider = ({ children }) => {
 
   const [sales, setSales] = useState([]);
 
+  // Compute summary dynamically using useMemo for optimization
+  const summary = useMemo(() => {
+    const totalLoaded = batches.reduce((sum, batch) => sum + batch.total, 0);
+
+    const totalSold = batches.reduce((sum, batch) => sum + batch.sold, 0);
+    const totalMortality = batches.reduce(
+      (sum, batch) => sum + batch.mortality,
+      0
+    );
+    const totalRemaining = totalLoaded - (totalSold + totalMortality);
+
+    return {
+      totalLoaded,
+      totalSold,
+      totalMortality,
+      totalRemaining,
+    };
+  }, [batches]);
+
   // Function to add a new batch
   const addBatch = (batch) => {
     setBatches([...batches, batch]);
@@ -124,33 +143,41 @@ const FarmProvider = ({ children }) => {
   // Function to update batch when birds are sold or there is mortality
   const updateBatch = (batchId, quantity, type, price = 0) => {
     setBatches((prevBatches) =>
-      prevBatches.map((batch) =>
-        batch.id === batchId
-          ? {
-              ...batch,
-              total: batch.total - quantity,
-              sold: type === "sold" ? batch.sold + quantity : batch.sold,
-              mortality:
-                type === "mortality"
-                  ? batch.mortality + quantity
-                  : batch.mortality,
-            }
-          : batch
-      )
+      prevBatches.map((batch) => {
+        if (batch.id !== batchId) return batch;
+
+        const available = batch.total; // Birds available in the batch
+        if (quantity > available) {
+          alert(
+            `Cannot ${type} ${quantity} birds. Only ${available} available.`
+          );
+          return batch; // Return unchanged batch
+        }
+
+        return {
+          ...batch,
+          total: available - quantity,
+          sold: type === "sold" ? batch.sold + quantity : batch.sold,
+          mortality:
+            type === "mortality" ? batch.mortality + quantity : batch.mortality,
+        };
+      })
     );
 
     if (type === "sold") {
       const batch = batches.find((b) => b.id === batchId);
-      setSales([
-        ...sales,
-        {
-          date: new Date().toISOString().split("T")[0],
-          batch: batch.batch,
-          quantity,
-          price,
-          total: quantity * price,
-        },
-      ]);
+      if (batch) {
+        setSales((prevSales) => [
+          ...prevSales,
+          {
+            date: new Date().toISOString().split("T")[0],
+            batch: batch.batch,
+            quantity,
+            price,
+            total: quantity * price,
+          },
+        ]);
+      }
     }
   };
 
@@ -160,7 +187,7 @@ const FarmProvider = ({ children }) => {
 
   return (
     <FarmContext.Provider
-      value={{ batches, sales, addBatch, updateBatch, deleteBatch }}
+      value={{ batches, sales, addBatch, updateBatch, deleteBatch, summary }}
     >
       {children}
     </FarmContext.Provider>

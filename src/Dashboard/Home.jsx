@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import PieChart from "./PieChart";
+import { FarmContext } from "../context/FarmContext";
 
 const Home = () => {
+  const { summary } = useContext(FarmContext);
   return (
     <section className=" px-4 px-md-5 pb-4">
       <div className=" py-4">
         <div className="row gap-3 gap-md-4 align-items-center justify-content-center d-flex text-center">
           <div className="col-12 col-md bg-white rounded p-4 py-5 d-flex flex-column align-items-center justify-content-center">
-            <h2 className="primary-color">2600</h2>
+            <h2 className="primary-color">{summary.totalRemaining}</h2>
             <div className="fw-medium">No. of birds</div>
           </div>
           <div className="col-12 col-md bg-white rounded p-4 py-5 d-flex flex-column align-items-center justify-content-center">

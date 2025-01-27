@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { FarmContext } from "../context/FarmContext";
 import ReactApexChart from "react-apexcharts";
 
 const PieChart = () => {
+  const { summary } = useContext(FarmContext);
   const [chartData] = useState({
-    series: [47, 38, 7, 7],
+    series: [summary.totalSold, summary.totalMortality, summary.totalRemaining],
     options: {
       chart: {
         width: 380,
         type: "pie",
       },
-      labels: ["Loaded", "Sold", "Mortality", "Remaining"],
+      labels: ["Sold", "Mortality", "Remaining"],
+      colors: ["#00E396", "#df1c1f", "#3a69ff"],
       responsive: [
         {
           breakpoint: 480,
